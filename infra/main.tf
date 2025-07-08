@@ -45,10 +45,10 @@ module "alb" {
   subnet_ids                = tolist(module.networking.public_subnets)
   tag_name                  = "alb"
   lb_target_group_arn       = module.lb_target_group.lb_target_group_arn
-  lb_listner_port           = 5000
+  lb_listner_port           = 80
   lb_listner_protocol       = "HTTP"
   lb_listner_default_action = "forward"
-  lb_https_listner_port     = 5000
+  lb_https_listner_port     = 80
   lb_https_listner_protocol = "HTTP"
   #dev_proj_1_acm_arn        = module.aws_ceritification_manager.dev_proj_1_acm_arn
   lb_target_group_attachment_port = 5000
