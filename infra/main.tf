@@ -3,6 +3,7 @@ module "networking" {
   vpc_cidr             = var.vpc_cidr
   vpc_name             = var.vpc_name
   cidr_public_subnet   = var.cidr_public_subnet
+  cidr_private_subnet  = var.cidr_private_subnet
   us_availability_zone = var.us_availability_zone
 }
 
@@ -12,7 +13,7 @@ module "security_group" {
   vpc_id              = module.networking.vpc_id
   ec2_sg_name_http = "Allow port 8080 for jenkins"
 }
-
+/*
 module "compute" {
   source                    = "./compute"
   ec2_ami_id                = var.ec2_ami_id
@@ -51,3 +52,4 @@ module "alb" {
   #dev_proj_1_acm_arn        = module.aws_ceritification_manager.dev_proj_1_acm_arn
   lb_target_group_attachment_port = 80
 }
+*/
