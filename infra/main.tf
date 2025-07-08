@@ -12,6 +12,7 @@ module "security_group" {
   ec2_sg_name_ssh         = "SG for EC2 to enable SSH(22), HTTPS(443) and HTTP(80)"
   vpc_id              = module.networking.vpc_id
   ec2_sg_name_http = "Allow port 8080 for jenkins"
+  public_subnet_cidr_block  = module.networking.public_subnet_cidr_block
 }
 
 module "compute" {
@@ -51,4 +52,15 @@ module "alb" {
   lb_https_listner_protocol = "HTTP"
   #dev_proj_1_acm_arn        = module.aws_ceritification_manager.dev_proj_1_acm_arn
   lb_target_group_attachment_port = 5000
+}
+
+module "rds_db_instance" {
+  source               = "./rds"
+  db_subnet_group_name = "rds_subnet_group"
+  subnet_groups        = tolist(module.networking.private_subnets)
+  rds_mysql_sg_id      = module.security_group.rds_mysql_sg_id
+  mysql_db_identifier  = "mydb"
+  mysql_username       = "dbuser"
+  mysql_password       = "dbpassword"
+  mysql_dbname         = "mysql_db"
 }
