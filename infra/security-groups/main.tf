@@ -1,6 +1,8 @@
 variable "ec2_sg_name_ssh" {}
 variable "vpc_id" {}
 variable "ec2_sg_name_http" {}
+variable "public_subnet_cidr_block" {}
+
 
 output "sg_ec2_sg_ssh_http_id" {
   value = aws_security_group.ec2_sg_ssh_http.id
@@ -8,6 +10,10 @@ output "sg_ec2_sg_ssh_http_id" {
 
 output "sg_ec2_port_8080_id" {
   value = aws_security_group.ec2_port_8080.id
+}
+
+output "rds_mysql_sg_id" {
+  value = aws_security_group.rds_mysql_sg.id
 }
 
 resource "aws_security_group" "ec2_sg_ssh_http" {
@@ -75,3 +81,16 @@ resource "aws_security_group" "ec2_port_8080" {
   }
 }
 
+# Security Group for RDS
+resource "aws_security_group" "rds_mysql_sg" {
+  name        = "rds-sg"
+  description = "Allow access to RDS from EC2 present in public subnet"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = tolist(var.public_subnet_cidr_block) # replace with your EC2 instance security group CIDR block
+  }
+}
