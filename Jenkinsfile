@@ -53,7 +53,20 @@ pipeline {
                 }
             }
         }
-    
+        stage('Terraform Destroy') {
+            steps {
+                script {
+                    if (params.DESTROY_TERRAFORM) {
+                       withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails-ahmed']]){
+                            dir('infra') {
+                                sh 'echo "=================Terraform Destroy=================="'
+                                sh 'terraform destroy -auto-approve'
+                            }
+                        }
+                    }
+                }
+            }
+        }
     
     }
 }
