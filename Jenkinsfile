@@ -39,5 +39,21 @@ pipeline {
                 }
             }
         }
+        stage('Terraform Apply') {
+            steps {
+                script {
+                    if (params.APPLY_TERRAFORM) {
+                       withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails-ahmed']]){
+                            dir('infra') {
+                                sh 'echo "=================Terraform Apply=================="'
+                                sh 'terraform apply -auto-approve'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    
+    
     }
 }
