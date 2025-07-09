@@ -50,7 +50,7 @@ module "alb" {
   lb_listner_default_action = "forward"
   lb_https_listner_port     = 80
   lb_https_listner_protocol = "HTTP"
-  #dev_proj_1_acm_arn        = module.aws_ceritification_manager.dev_proj_1_acm_arn
+  #acm_arn        = module.aws_ceritification_manager.dev_proj_1_acm_arn
   lb_target_group_attachment_port = 5000
 }
 
@@ -63,4 +63,5 @@ module "rds_db_instance" {
   mysql_username       = "dbuser"
   mysql_password       = "dbpassword"
   mysql_dbname         = "mysql_db"
+  # output the rds address and add it to the enstance env variables
 }
