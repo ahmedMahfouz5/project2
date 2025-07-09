@@ -6,6 +6,12 @@ variable "mysql_username" {}
 variable "mysql_password" {}
 variable "mysql_dbname" {}
 
+output "rds_endpoint" {
+  value = aws_db_instance.default.endpoint
+  description = "The endpoint of the RDS instance"
+}
+
+
 # RDS Subnet Group
 resource "aws_db_subnet_group" "db_subnet_group" {
   name       = var.db_subnet_group_name
