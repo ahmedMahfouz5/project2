@@ -72,6 +72,25 @@ resource "aws_security_group" "ec2_port_8080" {
   }
 }
 
+resource "aws_security_group" "lb_allow_port_80" {
+  name        = var.ec2_sg_name_http
+  description = "Enable the Port 8080 for jenkins"
+  vpc_id      = var.vpc_id
+
+  # ssh for terraform remote exec
+  ingress {
+    description = "Allow 8080 port to access jenkins"
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+  }
+
+  tags = {
+    Name = "Security Groups to allow SSH(22) and HTTP(80)"
+  }
+}
+
 # Security Group for RDS
 resource "aws_security_group" "rds_mysql_sg" {
   name        = "rds-sg"
