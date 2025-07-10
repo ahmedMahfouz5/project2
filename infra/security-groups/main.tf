@@ -5,7 +5,7 @@ variable "public_subnet_cidr_block" {}
 
 
 output "sg_ec2_sg_ssh_http_id" {
-  value = aws_security_group.ec2_sg_ssh_http.id
+  value = aws_security_group.ec2_sg_ssh_http_port_5000.id
 }
 
 output "sg_ec2_port_8080_id" {
@@ -16,7 +16,7 @@ output "rds_mysql_sg_id" {
   value = aws_security_group.rds_mysql_sg.id
 }
 
-resource "aws_security_group" "ec2_sg_ssh_http" {
+resource "aws_security_group" "ec2_sg_ssh_http_port_5000" {
   name        = var.ec2_sg_name_ssh
   description = "Enable the Port 22(SSH) & Port 80(http)"
   vpc_id      = var.vpc_id
