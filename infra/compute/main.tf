@@ -24,7 +24,7 @@ resource "aws_instance" "ec2_instance" {
   }
   key_name                    = "frontend_key"
   subnet_id                   = var.subnet_id
-  vpc_security_group_ids      = var.sg_for_jenkins
+  vpc_security_group_ids      = [var.sg_for_jenkins]
   associate_public_ip_address = var.enable_public_ip_address
 
   user_data = var.user_data_install
