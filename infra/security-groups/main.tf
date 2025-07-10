@@ -8,6 +8,10 @@ output "sg_ec2_sg_ssh_http_id" {
   value = aws_security_group.ec2_sg_ssh_http_port_5000.id
 }
 
+output "lb_allow_port_80_id" {
+  value = aws_security_group.lb_allow_port_80.id
+}
+
 output "rds_mysql_sg_id" {
   value = aws_security_group.rds_mysql_sg.id
 }
