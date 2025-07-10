@@ -41,7 +41,7 @@ module "alb" {
   lb_name                   = "alb"
   is_external               = false
   lb_type                   = "application"
-  sg_enable_ssh_https       = module.security_group.lb_allow_port_80
+  sg_enable_ssh_https       = module.security_group.lb_allow_port_80_id
   subnet_ids                = tolist(module.networking.public_subnets)
   tag_name                  = "alb"
   lb_target_group_arn       = module.lb_target_group.lb_target_group_arn
